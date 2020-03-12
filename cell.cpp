@@ -23,46 +23,19 @@ Cell* Cell::create_cell(int tipo, size_t i, size_t j)
 
 Cell::Cell(size_t i, size_t j): row(i), col(j) {}
 
-struct Condition
-{
-	std::function<bool(size_t)> surv;
-	std::function<bool(size_t)> born;
-};
-
-
-
-std::array<Condition, 3> conditions = 
-{
-	Condition
-	{
-		[](size_t n) { return eqor(n, 2, 3); },
-		[](size_t n) { return n == 3; }
-	},
-	Condition
-	{						  
-		[](size_t n) { return eqor(n, 2, 4, 5); },
-		[](size_t n) { return eqor(n, 3, 6, 8); }
-	},
-	Condition
-	{
-		[](size_t n) { return eqor(n, 2, 3); },
-		[](size_t n) { return eqor(n, 3, 6); }
-	}
-};
-
 int Cell::update()
 {
-	if (conditions[0].born(n_neigh)) // 3/23
+	if (Cell1::born(alive_neigh()))
 	{
 		return 1;
 	}
 	
-	if (conditions[1].born(n_neigh)) // 368/245
+	if (Cell2::born(alive_neigh()))
 	{
 		return 2;
 	}
 	
-	if (conditions[1].born(n_neigh)) // 36/23
+	if (Cell3::born(alive_neigh()))
 	{
 		return 3;
 	}
@@ -100,7 +73,7 @@ void Cell::count_neighbours(const Board& t)
 ******/
 int Cell1::update()
 {
-	if(true /*superv*/)
+	if(survival(alive_neigh()))
 	{
 		return 0;
 	}
@@ -118,7 +91,7 @@ void Cell1::show(std::ostream& os) const
 ******/
 int Cell2::update()
 {
-	if(true /*superv*/)
+	if(survival(alive_neigh()))
 	{
 		return 0;
 	}
@@ -136,7 +109,7 @@ void Cell2::show(std::ostream& os) const
 ******/
 int Cell3::update()
 {
-	if(true /*superv*/)
+	if(survival(alive_neigh()))
 	{
 		return 0;
 	}
