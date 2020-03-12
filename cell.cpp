@@ -1,27 +1,70 @@
 #include "cell.hpp"
 #include "board.hpp"
 
+#include <functional>
 /**********
 *BASE CELL*
 ***********/
 
+Cell* Cell::create_cell(int tipo, size_t i, size_t j)
+{
+	switch (tipo)
+	{
+	case 1:
+		return new Cell1(i, j);
+	case 2:
+		return new Cell2(i, j);
+	case 3:
+		return new Cell3(i, j);
+	default:
+		return new Cell(i, j);
+	}
+}
+
 Cell::Cell(size_t i, size_t j): row(i), col(j) {}
+
+struct Condition
+{
+	std::function<bool(size_t)> surv;
+	std::function<bool(size_t)> born;
+};
+
+
+
+std::array<Condition, 3> conditions = 
+{
+	Condition
+	{
+		[](size_t n) { return eqor(n, 2, 3); },
+		[](size_t n) { return n == 3; }
+	},
+	Condition
+	{						  
+		[](size_t n) { return eqor(n, 2, 4, 5); },
+		[](size_t n) { return eqor(n, 3, 6, 8); }
+	},
+	Condition
+	{
+		[](size_t n) { return eqor(n, 2, 3); },
+		[](size_t n) { return eqor(n, 3, 6); }
+	}
+};
 
 int Cell::update()
 {
-	if (true/*Condicion nacimiento 1*/)
+	if (conditions[0].born(n_neigh)) // 3/23
 	{
 		return 1;
 	}
 	
-	if (true/*Condicion nacimiento 2*/)
+	if (conditions[1].born(n_neigh)) // 368/245
 	{
 		return 2;
 	}
 	
-	if (true/*Condicion nacimiento 3*/)
+	if (conditions[1].born(n_neigh)) // 36/23
 	{
-		return 2;
+		return 3;
 	}
 	
 	return 0;
