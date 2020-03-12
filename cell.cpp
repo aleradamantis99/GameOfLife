@@ -1,5 +1,5 @@
 #include "cell.hpp"
-#include "tablero.hpp"
+#include "board.hpp"
 
 /**********
 *BASE CELL*
@@ -32,7 +32,7 @@ void Cell::show(std::ostream& os) const
 	os << ' ';
 }
 
-void Cell::count_neighbours(const Tablero& t)
+void Cell::count_neighbours(const Board& t)
 {
 	n_neigh = 0;
 	for (size_t i = row-1; i<=row+1; ++i)
