@@ -21,7 +21,7 @@ struct Cell1: Cell
 {
 	using Cell::Cell;
 	bool is_alive() const override { return true; }
-	virtual int update();
+	int update() override;
 	void show(std::ostream&) const override;
 };
 
@@ -29,7 +29,7 @@ struct Cell2: Cell
 {
 	using Cell::Cell;
 	bool is_alive() const override { return true; }
-	virtual int update();
+	int update() override;
 	void show(std::ostream&) const override;
 };
 
@@ -37,6 +37,6 @@ struct Cell3: Cell
 {
 	using Cell::Cell;
 	bool is_alive() const override { return true; }
-	virtual int update();
+	int update() override;
 	void show(std::ostream&) const override;
 };
