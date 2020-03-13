@@ -11,6 +11,7 @@ private:
 	using CellBoard_t = std::vector<std::unique_ptr<Cell>>;
 	size_t n_rows, n_cols;
 	CellBoard_t matrix;
+	sf::VertexArray dots;
 	
 	auto pos(size_t i, size_t j) const 
 	{
@@ -26,6 +27,7 @@ public:
 	void round();
 	void replace_cell(int new_state, size_t i, size_t j);
 	void show(std::ostream&) const;
+	void show_dots(sf::RenderWindow&) const;
 	void show(sf::RenderWindow&) const;
 	~Board(); //Needed in order to use unique_ptr
 	

@@ -7,8 +7,9 @@ int main(int argc, char* argv[])
 {
 	bool stepped = argc > 1;
 	Cell::radius = 2.f;
-	unsigned width = 1000, height = 600;
-	size_t cols = height/(2*Cell::radius), rows = width/(2*Cell::radius);
+	unsigned width = 1200, height = 650;
+	//size_t cols = height/(2*Cell::radius), rows = width/(2*Cell::radius);
+	size_t cols = height, rows = width;
 	Board t(rows, cols);
 	//Cell::radius = std::min(width/rows, height/cols)/2;
 	srand(time(nullptr));
@@ -74,7 +75,9 @@ int main(int argc, char* argv[])
             	if (event.key.code == sf::Keyboard::Space)
             	{
             		if (stepped)
+            		{
             			t.round();
+            		}
             	}
             	else //if (event.key.code == sf::Keyboard::Escape)
             	{
@@ -85,8 +88,10 @@ int main(int argc, char* argv[])
         
         window.clear();
         if (not stepped)
+        {
         	t.round();
-	   	t.show(window);
+        }
+	   	t.show_dots(window);
 		window.display();
     }
 

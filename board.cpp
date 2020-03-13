@@ -4,13 +4,17 @@
 Board::Board(size_t r, size_t c): 
 	n_rows(r),
 	n_cols(c),
-	matrix(r*c)
+	matrix(r*c),
+	dots(sf::Points, r*c)
 {
 	for (size_t i=0; i<n_rows; ++i)
 	{
 		for (size_t j=0; j<n_cols; ++j)
 		{
-			matrix[pos(i, j)] = std::make_unique<Cell>(i, j);
+			auto position=pos(i,j);
+			matrix[position] = std::make_unique<Cell>(i, j);
+			dots[position].position = sf::Vector2f{i, j};
+			dots[position].color = sf::Color::Black;
 		}
 	}
 }
@@ -36,7 +40,10 @@ void Board::round()
 		auto new_state = c->update();
 		if (new_state >= 0)
 		{
-			replace_cell(new_state, c->row_pos(), c->col_pos());
+			size_t i = c->row_pos();
+			size_t j = c->col_pos();
+			replace_cell(new_state, i, j);
+			dots[pos(i,j)].color = c->color();
 		}
 	}
 }
@@ -45,6 +52,7 @@ void Board::replace_cell(int new_state, size_t i, size_t j)
 {
 	matrix[pos(i, j)].reset(Cell::create_cell(new_state, i, j));
 }
+
 
 void Board::show(std::ostream& os) const
 {
@@ -58,6 +66,11 @@ void Board::show(std::ostream& os) const
 		}
 		os << '\n';
 	}
+}
+
+void Board::show_dots(sf::RenderWindow& win) const
+{
+	win.draw(dots);
 }
 
 void Board::show(sf::RenderWindow& win) const

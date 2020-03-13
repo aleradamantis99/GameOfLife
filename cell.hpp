@@ -15,6 +15,7 @@ class Cell
 private:
 	size_t n_neigh = 0;
 	size_t row, col;
+
 public:
 	static float radius;
 	Cell(size_t, size_t);
@@ -52,9 +53,9 @@ struct Cell1: Cell
 struct Cell2: Cell
 {
 	using Cell::Cell;
-	static bool survival(size_t n) { return eqor(n, 2, 3); }
-	static bool born(size_t n) { return eqor(n, 3, 6); }
 	
+	static bool survival(size_t n) { return eqor(n, 2, 4, 5); }
+	static bool born(size_t n) { return eqor(n, 3, 6, 8); }
 	
 	char represent() const override { return '2'; }
 	sf::Color color() const override { return sf::Color::Red; }
@@ -62,14 +63,13 @@ struct Cell2: Cell
 	bool is_alive() const override { return true; }
 	int update() override;
 };
-
 struct Cell3: Cell
 {
 	using Cell::Cell;
-	
-	static bool survival(size_t n) { return eqor(n, 2, 4, 5); }
-	static bool born(size_t n) { return eqor(n, 3, 6, 8); }
-	
+		
+	static bool survival(size_t n) { return eqor(n, 2, 3); }
+	static bool born(size_t n) { return eqor(n, 3, 6); }
+
 	char represent() const override { return '3'; }
 	sf::Color color() const override { return sf::Color::Blue; }
 	
