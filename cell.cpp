@@ -40,22 +40,22 @@ int Cell::update()
 		return 3;
 	}
 	
-	return 0;
+	return -1;
 }
 
 void Cell::show(std::ostream& os) const
 {
-	os << ' ';
+	os << represent();
 }
 
 void Cell::count_neighbours(const Board& t)
 {
 	n_neigh = 0;
-	for (size_t i = row-1; i<=row+1; ++i)
-	{
-		for (size_t j = col-1; j<=col+1; ++j)
+    for (int i = -1; i<=1; ++i)
+    {
+        for (int j = -1; j<=1; ++j)
 		{
-			if (t.is_alive_at(i, j))
+            if (t.is_alive_at(row+i, col+j))
 			{
 				++n_neigh;
 			}
@@ -73,17 +73,12 @@ void Cell::count_neighbours(const Board& t)
 ******/
 int Cell1::update()
 {
-	if(survival(alive_neigh()))
+    if(not survival(alive_neigh()))
 	{
 		return 0;
 	}
 	
-	return 1;
-}
-
-void Cell1::show(std::ostream& os) const
-{
-	os << '1';
+	return -1;
 }
 
 /******
@@ -91,17 +86,12 @@ void Cell1::show(std::ostream& os) const
 ******/
 int Cell2::update()
 {
-	if(survival(alive_neigh()))
+    if(not survival(alive_neigh()))
 	{
 		return 0;
 	}
 	
-	return 2;
-}
-
-void Cell2::show(std::ostream& os) const
-{
-	os << '2';
+	return -1;
 }
 
 /******
@@ -109,15 +99,11 @@ void Cell2::show(std::ostream& os) const
 ******/
 int Cell3::update()
 {
-	if(survival(alive_neigh()))
+    if(not survival(alive_neigh()))
 	{
 		return 0;
 	}
 	
-	return 3;
+	return -1;
 }
 
-void Cell3::show(std::ostream& os) const
-{
-	os << '3';
-}
