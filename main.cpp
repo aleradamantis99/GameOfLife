@@ -74,7 +74,9 @@ int main(int argc, char* argv[])
             	if (event.key.code == sf::Keyboard::Space)
             	{
             		if (stepped)
+            		{
             			t.round();
+            		}
             	}
             	else //if (event.key.code == sf::Keyboard::Escape)
             	{
@@ -85,7 +87,9 @@ int main(int argc, char* argv[])
         
         window.clear();
         if (not stepped)
+        {
         	t.round();
+        }
 	   	t.show(window);
 		window.display();
     }
