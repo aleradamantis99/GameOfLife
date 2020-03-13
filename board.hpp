@@ -2,6 +2,7 @@
 #include <vector>
 #include <memory>
 #include <cassert>
+#include <SFML/Graphics.hpp>
 class Cell;
 
 class Board
@@ -25,6 +26,7 @@ public:
 	void round();
 	void replace_cell(int new_state, size_t i, size_t j);
 	void show(std::ostream&) const;
+	void show(sf::RenderWindow&) const;
 	~Board(); //Needed in order to use unique_ptr
 	
 };

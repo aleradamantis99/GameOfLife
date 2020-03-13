@@ -6,6 +6,8 @@
 *BASE CELL*
 ***********/
 
+float Cell::radius = 10.f;
+
 Cell* Cell::create_cell(int tipo, size_t i, size_t j)
 {
 	switch (tipo)
@@ -46,6 +48,14 @@ int Cell::update()
 void Cell::show(std::ostream& os) const
 {
 	os << represent();
+}
+
+void Cell::show(sf::RenderWindow& win) const
+{
+	sf::CircleShape circ(radius);
+	circ.setPosition(row*2*radius, col*2*radius); 
+	circ.setFillColor(color());
+	win.draw(circ);
 }
 
 void Cell::count_neighbours(const Board& t)

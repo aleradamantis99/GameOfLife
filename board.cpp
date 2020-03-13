@@ -60,5 +60,16 @@ void Board::show(std::ostream& os) const
 	}
 }
 
+void Board::show(sf::RenderWindow& win) const
+{
+	for (size_t i=0; i<n_rows; ++i)
+	{
+		for (size_t j=0; j<n_cols; ++j)
+		{
+			cell_at(i, j)->show(win);
+		}
+	}
+}
+
 Board::~Board() {}
 
